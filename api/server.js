@@ -18,5 +18,6 @@ server.get('/', (req, res) => {
     res.status(200).json({ api: 'Best Professor App' });
   });
 
+server.use('/docs', express.static('./docs'));  
 
 module.exports = server;
