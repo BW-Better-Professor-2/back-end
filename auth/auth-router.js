@@ -4,6 +4,33 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const secret = require("../secrets/secret.js");
 
+/** 
+* @api {register} /api/auth/register Register
+* @apiName Register
+* @apiGroup Auth
+* 
+* @apiParam {String} id User id
+* @apiParam {String} password Password
+*
+* @apiParamExample Example Body: 
+* {
+*	"username": "username",
+*	"password": "password"
+}
+* 
+* @apiSuccessExample Successful Response
+*   HTTP/1.1 200 OK 
+* {
+* "message": "Thanks for registering, username!",
+*  "user": {
+*    "id": 3,
+*    "username": "username",
+*    "password": "hashed password, long string, not actual password"
+*  },
+*  "token": "long string, token"
+* }
+*/
+
 router.post("/register", (req, res) => {
   // implement registration
   let userData = req.body;
@@ -23,6 +50,33 @@ router.post("/register", (req, res) => {
       res.status(500).json({ Error: "failed to retrieve database", err });
     });
 });
+
+/** 
+* @api {login} /api/auth/login Login
+* @apiName Login
+* @apiGroup Auth
+* 
+* @apiParam {String} id User id
+* @apiParam {String} password Password
+*
+* @apiParamExample Example Body: 
+* {
+*	"username": "username",
+*	"password": "password"
+}
+* 
+* @apiSuccessExample Successful Response
+*   HTTP/1.1 200 OK 
+* {
+* "message": "Welcome back, username!",
+*  "user": {
+*    "id": number,
+*    "username": "username",
+*    "password": "hashed password, long string, not actual password"
+*  },
+*  "token": "long string, token"
+* }
+*/
 
 router.post("/login", (req, res) => {
   // implement login
