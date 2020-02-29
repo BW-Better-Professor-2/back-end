@@ -44,22 +44,22 @@ router.post("/login", (req, res) => {
     });
 });
 
-// router.get("/", (req, res) => {
-//   Users.find().then(user => {
-//     res.status(200).json(user);
-//   });
-// });
+router.get("/", (req, res) => {
+  Users.find().then(user => {
+    res.status(200).json(user);
+  });
+});
 
-// function genToken(user) {
-//   const payload = {
-//     userId: user.id,
-//     username: user.username
-//   };
-//   const options = {
-//     expiresIn: "1h"
-//   };
-//   const token = jwt.sign(payload, secret.jwtSecret, options);
-//   return token;
-// }
+function genToken(user) {
+  const payload = {
+    userId: user.id,
+    username: user.username
+  };
+  const options = {
+    expiresIn: "1h"
+  };
+  const token = jwt.sign(payload, secret.jwtSecret, options);
+  return token;
+}
 
 module.exports = router;
