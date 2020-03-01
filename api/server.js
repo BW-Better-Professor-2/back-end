@@ -13,9 +13,10 @@ server.use(cors());
 server.use(express.json());
 
 server.use('/api/auth', authRouter);
-// server.use('/api/jokes', authenticate, jokesRouter);
+// server.use('/api/students', authenticate, studentsRouter);
+// server.use('/api/students/comments, authenticate, commentsRouter);
 server.get('/', (req, res) => {
-    res.status(200).json({ api: 'Best Professor App' });
+    res.status(200).json({ api: 'Best Professor App:  documentation located at https://better-professor-bw.herokuapp.com/docs' });
   });
 
 server.use('/docs', express.static('./docs'));  
