@@ -118,5 +118,151 @@
     "version": "0.0.0",
     "filename": "./auth/auth-router.js",
     "groupTitle": "Auth"
+  },
+  {
+    "type": "GetMessages",
+    "url": "/messages/",
+    "title": "Get All  Messages",
+    "name": "GetMessages",
+    "group": "Messages_}",
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "  HTTP/1.1 200 OK \n{\n \"message\": \"There are no messages for student with the specified id\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./messages/messages-router.js",
+    "groupTitle": "Messages_}"
+  },
+  {
+    "type": "GetMessagesByStudentId",
+    "url": "/messages/students/:id",
+    "title": "Get Messages By Student ID",
+    "name": "GetMessagesByStudentId",
+    "group": "Messages_}",
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "  HTTP/1.1 200 OK \n{\n \"message\": \"There are no messages for student with the specified id\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./messages/messages-router.js",
+    "groupTitle": "Messages_}"
+  },
+  {
+    "type": "AddAStudent",
+    "url": "/api/students",
+    "title": "Add a Student",
+    "name": "Add_A_Student",
+    "group": "Students",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Student's Name</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "  HTTP/1.1 201 OK \n{\n \"message\": \"Successfully created student!\",\n \"student\": {\n   \"id\": 3,\n   \"name\": \"Student Name\"\n }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./students/students-router.js",
+    "groupTitle": "Students"
+  },
+  {
+    "type": "DeleteAStudent",
+    "url": "/api/students/:id",
+    "title": "Delete a Student",
+    "name": "Delete_A_Student",
+    "group": "Students",
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "  HTTP/1.1 201 OK \n{\n \"message\": \"Successfully deleted student with id of 3!\",\n \"student\": {\n   \"id\": 3,\n   \"name\": \"Student Name\"\n }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./students/students-router.js",
+    "groupTitle": "Students"
+  },
+  {
+    "type": "findAllStudents",
+    "url": "/api/students",
+    "title": "Find All Students",
+    "name": "FindAllStudents",
+    "group": "Students",
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "  HTTP/1.1 200 OK \n[\n {\n   \"id\": 1,\n   \"name\": \"student name\"\n }\n {\n   \"id\": 2,\n   \"name\": \"second student name\"\n }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./students/students-router.js",
+    "groupTitle": "Students"
+  },
+  {
+    "type": "findastudentbyid",
+    "url": "/api/students/:id",
+    "title": "Find A Student By ID",
+    "name": "FindAtudentById",
+    "group": "Students",
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "  HTTP/1.1 200 OK \n[\n {\n   \"id\": 1,\n   \"name\": \"student name\"\n }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./students/students-router.js",
+    "groupTitle": "Students"
+  },
+  {
+    "type": "findStudentsProjects",
+    "url": "/api/students/:id/projects",
+    "title": "Find A Student's Project",
+    "name": "FindProjects_for_a_Student",
+    "group": "Students",
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "  HTTP/1.1 200 OK \n[ Need to fix this one once i add a project\n {\n   \"id\": 1,\n   \"name\": \"student name\"\n }\n {\n   \"id\": 2,\n   \"name\": \"second student name\"\n }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./students/students-router.js",
+    "groupTitle": "Students"
   }
 ]

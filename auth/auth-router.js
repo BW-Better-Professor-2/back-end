@@ -3,6 +3,7 @@ const Users = require("./auth-model.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const secret = require("../secrets/secret.js");
+const generateToken = require('../helpers/tokenize');
 
 /** 
 * @api {register} /api/auth/register Register
@@ -16,7 +17,7 @@ const secret = require("../secrets/secret.js");
 * {
 *	"username": "username",
 *	"password": "password"
-}
+} 
 * 
 * @apiSuccessExample Successful Response
 *   HTTP/1.1 200 OK 
@@ -88,7 +89,7 @@ router.post("/login", (req, res) => {
         const token = genToken(user);
         res
           .status(200)
-          .json({ message: `Welcome back, ${username}`, user, token: token });
+          .json({ message: `Welcome back, ${username}`, user, token });
       } else {
         res.status(401).json({ message: "invalid username/password" });
       }
@@ -107,7 +108,8 @@ router.get("/", (req, res) => {
 function genToken(user) {
   const payload = {
     userId: user.id,
-    username: user.username
+    username: user.username,
+   
   };
   const options = {
     expiresIn: "1h"
