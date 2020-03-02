@@ -113,11 +113,8 @@ router.get('/:id', (req, res) => {
 * @apiSuccessExample Successful Response
 *   HTTP/1.1 201 OK 
 *{
-*  "message": "Successfully deleted student with id of 3!",
-*  "student": {
-*    "id": 3,
-*    "name": "Student Name"
-*  }
+*  "message": "Successfully deleted student with id of :id !",
+*  "student": 1 (# of students removed)
 *}
 */
   
@@ -176,5 +173,48 @@ router.get('/:id/projects', (req, res) => {
       .then(projects => getDeadlines(projects, req, res))
       .catch(err => genericError(err, req, res));
   });
+
+  /** 
+* @api {EditAStudent} /api/students/:id Edit a Student
+* @apiName Edit A Student
+* @apiGroup Students
+* 
+* @apiParam {String} name Student's Name
+*
+* @apiParamExample Example Body: 
+* {
+*	"name": "Enter new name",
+* } 
+* 
+* @apiSuccessExample Successful Response
+*   HTTP/1.1 201 OK 
+*{
+*  "id": Same Id#,
+*  "name": "Updated Name"
+* }
+*/
+
+ router.put('/:id', (req, res)=> {
+  const { id } = req.params;
+ 
+  const changes = req.body;
+ 
+  Students.findById(id)
+ 
+  .then(student => {
+    if (student) {
+      Students.update(changes, id)
+      .then(updatedStudent => {
+        res.json(updatedStudent);
+      });
+    } else {
+      res.status(404).json({ message: 'Could not find student with given id' });
+    }
+  })
+  .catch (err => {
+    res.status(500).json({ message: 'Failed to update student' });
+  });
+});
+
 
   module.exports = router;

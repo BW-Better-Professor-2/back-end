@@ -5,7 +5,8 @@ module.exports = {
   find,
   findById,
   findProjectsById,
-  remove
+  remove, 
+  update
 }
 
 async function add(student) {
@@ -34,12 +35,19 @@ function findProjectsById(id) {
     .select('p.id', 'p.name');
 }
 
-async function remove(id) {
-  const student = await findById(id);
+function remove(id) {
+  const student = findById(id);
 
-  await db('Students')
+  return db('Students')
     .where({ id })
     .del();
-
-  return student;
 }
+
+ function update(changes, id){
+        return db('Students')
+        .where({id})
+        .update(changes)
+        .then(response => findById(id))
+   }    
+
+

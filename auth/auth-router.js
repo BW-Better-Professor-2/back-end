@@ -17,7 +17,7 @@ const generateToken = require('../helpers/tokenize');
 * {
 *	"username": "username",
 *	"password": "password"
-} 
+* } 
 * 
 * @apiSuccessExample Successful Response
 *   HTTP/1.1 200 OK 

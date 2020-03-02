@@ -199,7 +199,46 @@
       "examples": [
         {
           "title": "Successful Response",
-          "content": "  HTTP/1.1 201 OK \n{\n \"message\": \"Successfully deleted student with id of 3!\",\n \"student\": {\n   \"id\": 3,\n   \"name\": \"Student Name\"\n }\n}",
+          "content": "  HTTP/1.1 201 OK \n{\n \"message\": \"Successfully deleted student with id of :id !\",\n \"student\": 1 (# of students removed)\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./students/students-router.js",
+    "groupTitle": "Students"
+  },
+  {
+    "type": "EditAStudent",
+    "url": "/api/students/:id",
+    "title": "Edit a Student",
+    "name": "Edit_A_Student",
+    "group": "Students",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Student's Name</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Example Body: ",
+          "content": "{\n\t\"name\": \"Enter new name\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "  HTTP/1.1 201 OK \n{\n \"id\": Same Id#,\n \"name\": \"Updated Name\"\n}",
           "type": "json"
         }
       ]
