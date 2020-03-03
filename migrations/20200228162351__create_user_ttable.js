@@ -32,11 +32,29 @@ exports.up = async function(knex) {
       table.string("notes")
 
   })
+  await knex.schema.createTable("messages", tbl => {
+    tbl.increments();
+    tbl
+      .integer("user_id")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable("users");
+    tbl
+      .integer("student_id")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable("students");
+    tbl.string("text", 1024);
+    tbl.string("time_stamp", 128);
+  })
 
   
 };
 
 exports.down = async function(knex) {
+  await knex.schema.dropTableIfExists("messages")
     await knex.schema.dropTableIfExists("projects")
     await knex.schema.dropTableIfExists("students")
     await knex.schema.dropTableIfExists("users")

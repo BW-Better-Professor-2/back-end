@@ -7,6 +7,7 @@ const usersRouter = require('../users/users.router')
 const studentsRouter = require('../students/students-router')
 const loginRouter = require('../auth/auth-router')
 const projectRouter = require('../projects/projects-routers')
+const messagesRouter = require('../messages/messages-router')
 
 
 
@@ -22,6 +23,7 @@ server.use('/api/auth', loginRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/students', studentsRouter);
 server.use('/api/projects', projectRouter);
+server.use('/api/messages', messagesRouter)
 
 server.use('/docs', express.static('./docs'));
 

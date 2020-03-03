@@ -156,7 +156,26 @@
     "groupTitle": "Login/Register"
   },
   {
-    "type": "GetMessagesByStudentId",
+    "type": "get",
+    "url": "/messages/",
+    "title": "Get All  Messages",
+    "name": "GetMessages",
+    "group": "Messages",
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "HTTP/1.1 200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./messages/messages-router.js",
+    "groupTitle": "Messages"
+  },
+  {
+    "type": "get",
     "url": "/messages/students/:id",
     "title": "Get Messages By Student ID",
     "name": "GetMessagesByStudentId",
@@ -173,25 +192,6 @@
     "version": "0.0.0",
     "filename": "./messages/messages-router.js",
     "groupTitle": "Messages"
-  },
-  {
-    "type": "GetMessages",
-    "url": "/messages/",
-    "title": "Get All  Messages",
-    "name": "GetMessages",
-    "group": "Messages_}",
-    "success": {
-      "examples": [
-        {
-          "title": "Successful Response",
-          "content": "  HTTP/1.1 200 OK \n{\n \"message\": \"There are no messages for student with the specified id\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "./messages/messages-router.js",
-    "groupTitle": "Messages_}"
   },
   {
     "type": "post",
