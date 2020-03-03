@@ -1,83 +1,44 @@
-exports.up = function(knex) {
-    return knex.schema
-      .createTable('Users', table => {
-        table.increments();
-        table.string('username', 128)
-          .notNullable()
-          .unique();
-        table.string('password', 128)
-          .notNullable();
-      })
-      .createTable('Students', table => {
-        table.increments();
-        table.string('name', 128)
-          .notNullable();
-      })
-      .createTable('Projects', table => {
-        table.increments();
-        table.string('name', 128)
-          .notNullable();
-      })
-      .createTable('Users&Students', table => {
-        table.integer('user_id')
-          .unsigned()
-          .notNullable()
-          .references('id').inTable('Users');
-        table.integer('student_id')
-          .unsigned()
-          .notNullable()
-          .references('id').inTable('Students');
-        table.primary(['user_id', 'student_id']);
-      })
-      .createTable('Students&Projects', table => {
-        table.integer('student_id')
-          .unsigned()
-          .notNullable()
-          .references('id').inTable('Students');
-        table.integer('project_id')
-          .unsigned()
-          .notNullable()
-          .references('id').inTable('Projects');
-        table.primary(['student_id', 'project_id']);
-      })
-      .createTable('ProjectsToDeadlines', table => {
-        table.integer('project_id')
-          .unsigned()
-          .notNullable()
-          .references('id').inTable('Projects');
-        table.string('deadline_type', 128)
-          .notNullable();
-        table.string('deadline', 128)
-          .notNullable();
-      })
-      .createTable('Messages', table => {
-        table.increments();
-        table.integer('user_id')
-          .unsigned()
-          .notNullable()
-          .references('id').inTable('Users');
-        table.integer('student_id')
-          .unsigned()
-          .references('id').inTable('Students');
-        table.string('text', 1024)
-          .notNullable();
-        table.boolean('send_to_self')
-          .notNullable()
-          .defaultTo(false);
-        table.string('timestamp', 128)
-          .notNullable();
-      })
-  
-  };
+exports.up = async function(knex) {
+  await knex.schema.createTable("users", (table) => {
+      table.increments("id").unique()
+      table.string("username").unique().notNullable()
+      table.string("password").notNullable()
 
-  exports.down = function(knex) {
-    return knex.schema
-      .dropTableIfExists('Messages')
-      .dropTableIfExists('ProjectsToDeadlines')
-      .dropTableIfExists('Students&Projects')
-      .dropTableIfExists('Users&Students')
-      .dropTableIfExists('Projects')
-      .dropTableIfExists('Students')
-      .dropTableIfExists('Users');
-  };
+  })
+
+  await knex.schema.createTable("students", (table) => {
+    table.increments("id").unique()
+    table.integer("professor_id")
+    .notNullable()
+    .references("id")
+    .inTable("users")
+    .onDelete('CASCADE')
+    table.string("name").notNullable()
+    table.string("email").notNullable()
+    table.string("image_url")
+
+})
+
+  await knex.schema.createTable("projects", (table) => {
+      table.increments("id").unique()
+      table.integer("student_id")
+      .notNullable()
+      .references("id")
+      .inTable("students")
+      .onDelete('CASCADE')
+      table.string("title").notNullable()
+      table.date("due_date")
+      table.time("reminder_time")
+      table.string("notes")
+
+  })
+
   
+};
+
+exports.down = async function(knex) {
+    await knex.schema.dropTableIfExists("projects")
+    await knex.schema.dropTableIfExists("students")
+    await knex.schema.dropTableIfExists("users")
+
+};

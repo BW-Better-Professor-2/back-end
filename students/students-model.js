@@ -1,53 +1,63 @@
 const db = require('../data/dbConfig');
 
 module.exports = {
-  add,
-  find,
-  findById,
-  findProjectsById,
-  remove, 
-  update
+    getStudents,
+    findStudentById,
+    addStudent,
+    updateStudent,
+    removeStudent,
+    getProjectList
+
 }
 
-async function add(student) {
-  const [id] = await db('Students').insert(student, 'id');
-
-  return db('Students')
-    .where({ id })
-    .first();
+function getStudents() {
+    return db.select("*").from('students')
 }
 
-function find() {
-  return db('Students');
+function findStudentById(id) {
+    return db('students')
+    .where({id})
+    .first()
 }
 
-function findById(id) {
-  return db('Students')
-    .where({ id })
-    .first();
+function addStudent(newStudent){
+    return db('students')
+    .insert(newStudent)
+    .then(ids => {
+        const [id] = ids
+        return findStudentById(id)
+    })
 }
 
-function findProjectsById(id) {
-  return db('Projects AS p')
-    .join('Students&Projects AS s&p', 's&p.project_id', 'p.id')
-    .join('Students AS s', 's.id', 's&p.student_id')
-    .where({ 's.id': id })
-    .select('p.id', 'p.name');
+function updateStudent(changes, id){
+    return db('students')
+    .where('id', id)
+    .update(changes)
+    .then(updated => {
+        updated > 0 ? findStudentById(id) : null
+    })
 }
 
-function remove(id) {
-  const student = findById(id);
-
-  return db('Students')
-    .where({ id })
-    .del();
+function removeStudent (id) {
+    return db('students')
+    .where('id', id)
+    .del()
+    
 }
 
- function update(changes, id){
-        return db('Students')
-        .where({id})
-        .update(changes)
-        .then(response => findById(id))
-   }    
-
+function getProjectList(id) {
+    
+    return db('projects as p')
+    .join('students as s', 'p.student_id', 's.id')
+    .select('p.id as projectId', 'p.title', 'p.due_date', 'p.reminder_time', 'p.notes')
+    .where({'student_id' : id})
+    .then(projects => {
+        if (projects) {
+            return projects
+            
+        } else {
+            return null
+        }
+    })   
+}
 

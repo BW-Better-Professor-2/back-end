@@ -1,12 +1,15 @@
+
+
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const usersRouter = require('../users/users.router')
+const studentsRouter = require('../students/students-router')
+const loginRouter = require('../auth/auth-router')
+const projectRouter = require('../projects/projects-routers')
 
-const authenticate = require('../auth/authenticate-middleware.js');
-const authRouter = require('../auth/auth-router.js');
-const studentsRouter = require('../students/students-router.js');
-const projectsRouter = require('../projects/projects-routers');
-const messagesRouter = require('../messages/messages-router');
+
+
 
 const server = express();
 
@@ -14,15 +17,18 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-server.use('/api/auth', authRouter);
-server.use('/api/students', authenticate, studentsRouter);
-server.use('/projects', authenticate, projectsRouter);
-server.use('/messages', authenticate, messagesRouter);
+server.use('/api/auth', loginRouter);
+
+server.use('/api/users', usersRouter);
+server.use('/api/students', studentsRouter);
+server.use('/api/projects', projectRouter);
+
+server.use('/docs', express.static('./docs'));
 
 server.get('/', (req, res) => {
-    res.status(200).json({ api: 'Best Professor App:  documentation located at https://better-professor-bw.herokuapp.com/docs' });
-  });
+	res.send("Best Professor App:  documentation located at https://better-professor-bw.herokuapp.com/docs");
+});
 
-server.use('/docs', express.static('./docs'));  
+
 
 module.exports = server;

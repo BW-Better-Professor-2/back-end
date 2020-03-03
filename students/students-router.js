@@ -1,220 +1,210 @@
-const router = require('express').Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const secrets = require('../secrets/secret.js');
-const db = require('../data/dbConfig.js');
+const express = require('express');
+
 const Students = require('./students-model');
 
-
-
+const router = express.Router();
 
 /** 
-* @api {findAllStudents} /api/students Find All Students
-* @apiName FindAllStudents
+* @api {get} api/students GET a list of all students
+* @apiName getStudents
 * @apiGroup Students
-* 
-* 
-* @apiSuccessExample Successful Response
-*   HTTP/1.1 200 OK 
-*[
-*  {
-*    "id": 1,
-*    "name": "student name"
-*  }
-*  {
-*    "id": 2,
-*    "name": "second student name"
-*  }
-*]
 */
 
+
 router.get('/', (req, res) => {
-    Students.find()
-      .then(students => {
-        if (students && students.length >= 1) {
-          res.status(200).json(students);
-        } else {
-          res.status(401).json({
-            message: 'There are no students in the database.'
-          });
-        }
-      })
-      .catch(err => err(err, req, res));
-  });
+    Students.getStudents()
+    .then(students => {
+        res.json(students)
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({errorMessage: "Database failed to get users. Contact your backend"})
+    })
+ });
 
 /** 
-* @api {findastudentbyid} /api/students/:id Find A Student By ID
-* @apiName FindAtudentById
+* @api {get} api/students/:id GET a Student by Id
+* @apiName getStudentById
 * @apiGroup Students
-* 
-* 
+* @apiParam {Number} id Student id
+* @apiSuccess {Number} user_id id of user who created that student
+* @apiSuccess {String} name Student name
+* @apiSuccess {String} email Student email
+* @apiSuccess {String} image_url image url for student photo
 * @apiSuccessExample Successful Response
-*   HTTP/1.1 200 OK 
-*[
-*  {
-*    "id": 1,
-*    "name": "student name"
-*  }
-*]
+* HTTP/1.1 200 OK
+*{
+*   "id": 3,
+*   "professor_id": 1,
+*   "name": "John Smith",
+*   "email": "john@gmail.com",
+*   "image_url": "https://ibb.co/Pr9g04c"
+*}
 */
 
 router.get('/:id', (req, res) => {
-    const { id } = req.params;
-  
-    Students.findById(id)
-      .then(student => {
+    const {id} = req.params;
+
+    Students.findStudentById(id)
+    .then(student => {
         if (student) {
-          res.status(200).json(student);
+            res.json(student)
         } else {
-          res.status(401).json({
-            message: `There is no student with an id of ${id}.`,
-          });
+            res.status(404).json({message: 'There is no user with that id'})
         }
-      })
-      .catch(err => genericError(err, req, res));
-  });
-  
-/** 
-* @api {AddAStudent} /api/students Add a Student
-* @apiName Add A Student
+    })
+    .catch(err => {
+        res.status(500).json({errorMessage: 'Failed to get user. Contact your backend'})
+    })
+});
+
+ /** 
+* @api {post} api/students Add/Create a new student
+* @apiName addStudent
 * @apiGroup Students
 * 
-* @apiParam {String} name Student's Name
-* 
-* @apiSuccessExample Successful Response
-*   HTTP/1.1 201 OK 
-*{
-*  "message": "Successfully created student!",
-*  "student": {
-*    "id": 3,
-*    "name": "Student Name"
-*  }
-*}
-*/
-
-  
-  router.post('/', (req, res) => {
-    Students.add(req.body)
-      .then(student => {
-        res.status(201).json({
-          message: 'Successfully created student!',
-          student,
-        });
-      })
-      .catch(err => genericError(err, req, res));
-  });
-
-  /** 
-* @api {DeleteAStudent} /api/students/:id Delete a Student
-* @apiName Delete A Student
-* @apiGroup Students
-* 
-* 
-* @apiSuccessExample Successful Response
-*   HTTP/1.1 201 OK 
-*{
-*  "message": "Successfully deleted student with id of :id !",
-*  "student": 1 (# of students removed)
-*}
-*/
-  
-  router.delete('/:id', (req, res) => {
-    const { id } = req.params;
-  
-    Students.remove(id)
-      .then(student => {
-        if (student) {
-          res.status(200).json({
-            message: `Successfully deleted student with id of ${id}!`,
-            student,
-          });
-        } else {
-          res.status(401).json({
-            message: `There is no student with an id of ${id}`,
-          });
-        }
-      })
-      .catch(err => genericError(err, res, req));
-  })
-  
-    /** 
-* @api {findStudentsProjects} /api/students/:id/projects Find A Student's Project
-* @apiName FindProjects for a Student
-* @apiGroup Students
-* 
-* 
-* @apiSuccessExample Successful Response
-*   HTTP/1.1 200 OK 
-*[ Need to fix this one once i add a project
-*  {
-*    "id": 1,
-*    "name": "student name"
-*  }
-*  {
-*    "id": 2,
-*    "name": "second student name"
-*  }
-*]
-*/
-
-router.get('/:id/projects', (req, res) => {
-    const { id } = req.params;
-  
-    Students.findProjectsById(id)
-      .then(projects => {
-        if (projects && projects.length > 0) {
-          return projects;
-        } else {
-          res.status(401).json({
-            messages: `There are no projects associated with the student id ${id}.`,
-          });
-        }
-      })
-      .then(projects => getDeadlines(projects, req, res))
-      .catch(err => genericError(err, req, res));
-  });
-
-  /** 
-* @api {EditAStudent} /api/students/:id Edit a Student
-* @apiName Edit A Student
-* @apiGroup Students
-* 
-* @apiParam {String} name Student's Name
+* @apiParam {Number} professor_id id of professor the student is connected to 
+* @apiParam {String} name student name
+* @apiParam {String} email student email
+* @apiParam {String} image_url image url, optional field
 *
-* @apiParamExample Example Body: 
+* @apiParamExample Example Body:
 * {
-*	"name": "Enter new name",
-* } 
-* 
+*    "professor_id": 3,
+*    "name": "Student Name",
+*    "email": "email@email.com",
+*    "image_url": "https://image.com/image"   
+* }
+* @apiSuccess {Number} id Student id
+* @apiSuccess {Number} professor_id Id of the professor that the student is connected to
+* @apiSuccess {String} name Student Name
+* @apiSuccess {String} email Student Email
+* @apiSuccess {String} image_url image url
 * @apiSuccessExample Successful Response
-*   HTTP/1.1 201 OK 
+* HTTP/1.1 200 OK
 *{
-*  "id": Same Id#,
-*  "name": "Updated Name"
+*   "id": 9,
+*   "professor_id": 3,
+*   "name": "Student Name",
+*   "email": "email@email.com",
+*   "image_url": "https://image.com/image"
+*}
+*/
+
+router.post('/', (req, res) => {
+    const studentData = req.body;
+
+    Students.addStudent(studentData)
+    .then(student => {
+        res.status(201).json(student)
+        
+    })
+    .catch(err => {
+      console.log(err)
+        res.status(500).json({errorMessage: 'Failed to create student. Please contact your backend'})
+    })
+    
+});
+
+ /** 
+* @api {put} api/students/:id EDIT a Student by Id
+* @apiName editStudent
+* @apiGroup Students
+* @apiParam {Number} id Student id
+* @apiSuccessExample Successful Response
+* HTTP/1.1 200 OK
+*/
+
+router.put('/:id', (req, res) => {
+    const {id} = req.params;
+    const changes = req.body;
+
+    Students.findStudentById(id)
+    .then(student => {
+        if (student) {
+            Students.updateStudent(changes, id)
+            .then(updatedStudent => {
+              console.log(updatedStudent)
+                res.status(200).json(updatedStudent);
+            })
+        } else {
+            res.status(404).json({message: "No student with that id exists"})
+        }
+    })
+    .catch(err => {
+        res.status(500).json({message: "Failed to update student. Contact your backend"})
+    })
+});
+
+ /** 
+* @api {delete} api/students/:id DELETE a Student
+* @apiName deleteStudent
+* @apiGroup Students
+* @apiParam {Number} id Student Id
+*
+* @apiSuccessExample Successful Response
+* HTTP/1.1 200 OK
+* {
+*    "removed": 1
 * }
 */
 
- router.put('/:id', (req, res)=> {
-  const { id } = req.params;
- 
-  const changes = req.body;
- 
-  Students.findById(id)
- 
-  .then(student => {
-    if (student) {
-      Students.update(changes, id)
-      .then(updatedStudent => {
-        res.json(updatedStudent);
-      });
-    } else {
-      res.status(404).json({ message: 'Could not find student with given id' });
-    }
-  })
-  .catch (err => {
-    res.status(500).json({ message: 'Failed to update student' });
-  });
+router.delete('/:id', (req, res) => {
+    const {id} = req.params;
+
+    Students.removeStudent(id)
+    .then(deleted => {
+        if (deleted) {
+            res.json({removed: deleted})
+        } else {
+            res.status(404).json({message: 'No student with that id exists'})
+        }
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({errorMessage: "Failed to delete student. Contact your backend"})
+    })
 });
 
+ /** 
+* @api {get} api/students/:id/projects GET a list of Projects belonging to a student
+* @apiName getProjectList
+* @apiGroup Students
+*
+* @apiParam {Number} id Student id
+*
+* @apiSuccessExample Successful Response
+* HTTP/1.1 200 OK
+* [
+*    {
+*        "projectId": 2,
+*        "title": "Comments on Research Paper Due",
+*        "due_date": "02-23-2020",
+*        "reminder_time": "4:00",
+*        "notes": "Must return comments and edits for midterm paper"
+*    },
+*    {
+*        "projectId": 3,
+*        "title": "Give feedback on mock interview",
+*        "due_date": "02-28-2020",
+*        "reminder_time": "12:00",
+*        "notes": "Give feedback for mock interview excercise"
+*    }
+* ]
+*/
 
-  module.exports = router;
+router.get('/:id/projects', (req, res) => {
+    const {id} = req.params
+    
+    Students.getProjectList(id)
+    .then(projects => {
+        res.json(projects)
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({errorMessage: "Database failed to get projects. Contact your backend"})
+    })
+ });
+
+
+ module.exports = router;

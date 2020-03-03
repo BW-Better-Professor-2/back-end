@@ -39,13 +39,9 @@ router.get("/", (req, res) => {
 * @apiName GetMessagesByStudentId
 * @apiGroup Messages
 * 
-
-} 
 * 
 * @apiSuccessExample Successful Response
 *   HTTP/1.1 200 OK 
-
-
 *{
 *  "message": "There are no messages for student with the specified id"
 *}
