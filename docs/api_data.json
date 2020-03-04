@@ -55,7 +55,7 @@
       "examples": [
         {
           "title": "Example Body:",
-          "content": "{\n\t\"username\": \"bruce@banner.com\",\n\t\"password\": \"pass\"   \n}",
+          "content": "{\n\t\"username\": \"richard@richard.com\",\n\t\"password\": \"pass\"   \n}",
           "type": "json"
         }
       ]
@@ -89,7 +89,7 @@
       "examples": [
         {
           "title": "Successful Response",
-          "content": "HTTP/1.1 200 OK\n{\n   \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJydWNlQGJhbm5lci5jb20iLCJ1c2VySWQiOjMsImlhdCI6MTU4MDY4OTUzNywiZXhwIjoxNTgwNjkzMTM3fQ.YEJbwZVYl05mG6loRYlsMbAfpce36y3f3J-6fudoxsk\",\n   \"message\": \"Welcome bruce@banner.com!\",\n   \"id\": 3\n}",
+          "content": "HTTP/1.1 200 OK\n{\n   \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJydWNlQGJhbm5lci5jb20iLCJ1c2VySWQiOjMsImlhdCI6MTU4MDY4OTUzNywiZXhwIjoxNTgwNjkzMTM3fQ.YEJbwZVYl05mG6loRYlsMbAfpce36y3f3J-6fudoxsk\",\n   \"message\": \"Welcome richard@richard.com!\",\n   \"id\": 3\n}",
           "type": "json"
         }
       ]
@@ -154,6 +154,25 @@
     "version": "0.0.0",
     "filename": "./auth/auth-router.js",
     "groupTitle": "Login/Register"
+  },
+  {
+    "type": "get",
+    "url": "api/messages",
+    "title": "Get All Projects",
+    "name": "GetAllProjects",
+    "group": "Projects",
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "HTTP/1.1 200 OK\n[\n {\n   \"id\": 1,\n   \"message\": \"Don't forget final is at 8:00AM\",\n   \"time_stamp\": \"2020-03-03 12:00PM\",\n   \"user_id\": 1\n },\n {\n   \"id\": 2,\n   \"message\": \"Don't forget to turn in final\",\n   \"time_stamp\": \"2020-03-03 12:01PM\",\n   \"user_id\": 1\n }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./projects/projects-routers.js",
+    "groupTitle": "Projects"
   },
   {
     "type": "post",
@@ -351,7 +370,7 @@
       "examples": [
         {
           "title": "Successful Response",
-          "content": "HTTP/1.1 200 OK",
+          "content": "HTTP/1.1 200 OK\n{\n \"message\": \"Your project with id of ${id} has been updated\"\n}",
           "type": "json"
         }
       ]
@@ -430,6 +449,162 @@
     "version": "0.0.0",
     "filename": "./projects/projects-routers.js",
     "groupTitle": "Projects"
+  },
+  {
+    "type": "get",
+    "url": "api/messages",
+    "title": "Get All Reminders",
+    "name": "GetAllReminders",
+    "group": "Reminders",
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "HTTP/1.1 200 OK\n[\n {\n   \"id\": 1,\n   \"message\": \"Don't forget final is at 8:00AM\",\n   \"time_stamp\": \"2020-03-03 12:00PM\",\n   \"user_id\": 1\n },\n {\n   \"id\": 2,\n   \"message\": \"Don't forget to turn in final\",\n   \"time_stamp\": \"2020-03-03 12:01PM\",\n   \"user_id\": 1\n }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./reminders/reminders-router.js",
+    "groupTitle": "Reminders"
+  },
+  {
+    "type": "get",
+    "url": "api/messages/:id",
+    "title": "Get A Reminder by ID",
+    "name": "GetReminderById",
+    "group": "Reminders",
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "HTTP/1.1 200 OK\n[\n {\n   \"id\": 1,\n   \"message\": \"Don't forget final is at 8:00AM\",\n   \"time_stamp\": \"2020-03-03 12:00PM\",\n   \"user_id\": 1\n },\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./reminders/reminders-router.js",
+    "groupTitle": "Reminders"
+  },
+  {
+    "type": "post",
+    "url": "api/messages",
+    "title": "Create A Reminder",
+    "name": "CreateAReminder",
+    "group": "Reminders_{_\"message\":_\"Don't_forget_final_is_at_8:00AM_sharp\",_\"time_stamp\":_\"2020-03-03_12:00PM\",_\"user_id\":_1_}",
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "HTTP/1.1 200 OK\n[\n {\n   \"id\": 1,\n   \"message\": \"Don't forget final is at 8:00AM\",\n   \"time_stamp\": \"2020-03-03 12:00PM\",\n   \"user_id\": 1\n },\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./reminders/reminders-router.js",
+    "groupTitle": "Reminders_{_\"message\":_\"Don't_forget_final_is_at_8:00AM_sharp\",_\"time_stamp\":_\"2020-03-03_12:00PM\",_\"user_id\":_1_}"
+  },
+  {
+    "type": "delete",
+    "url": "api/reminders/:id",
+    "title": "DELETE a Reminder",
+    "name": "deleteReminder",
+    "group": "Reminders",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Project Id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "HTTP/1.1 200 OK\n{\n   \"removed\": 1\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./reminders/reminders-router.js",
+    "groupTitle": "Reminders"
+  },
+  {
+    "type": "put",
+    "url": "api/reminders/:id",
+    "title": "EDIT a reminder by Id",
+    "name": "editReminders",
+    "group": "Reminders",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>reminder id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "student_id",
+            "description": "<p>id of student the reminder is connected to</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>reminder title</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Date",
+            "optional": false,
+            "field": "due_date",
+            "description": "<p>date the project is due</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Time",
+            "optional": false,
+            "field": "reminder_time",
+            "description": "<p>time to send reminder</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "notes",
+            "description": "<p>notes</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "HTTP/1.1 200 OK\n{\n \"message\": \"Your reminder with id of ${id} has been updated\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./reminders/reminders-router.js",
+    "groupTitle": "Reminders"
   },
   {
     "type": "post",
