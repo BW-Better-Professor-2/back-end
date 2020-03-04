@@ -451,6 +451,34 @@
     "groupTitle": "Projects"
   },
   {
+    "type": "post",
+    "url": "api/messages",
+    "title": "Create A Reminder",
+    "name": "CreateAReminder",
+    "group": "Reminders",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Example Body:",
+          "content": "\n{\n  \"message\": \"Don't forget final is at 8:00AM sharp\",\n  \"time_stamp\": \"2020-03-03 12:00PM\",\n  \"user_id\": 1\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Successful Response",
+          "content": "HTTP/1.1 200 OK\n[\n {\n   \"id\": 1,\n   \"message\": \"Don't forget final is at 8:00AM\",\n   \"time_stamp\": \"2020-03-03 12:00PM\",\n   \"user_id\": 1\n },\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./reminders/reminders-router.js",
+    "groupTitle": "Reminders"
+  },
+  {
     "type": "get",
     "url": "api/messages",
     "title": "Get All Reminders",
@@ -487,25 +515,6 @@
     "version": "0.0.0",
     "filename": "./reminders/reminders-router.js",
     "groupTitle": "Reminders"
-  },
-  {
-    "type": "post",
-    "url": "api/messages",
-    "title": "Create A Reminder",
-    "name": "CreateAReminder",
-    "group": "Reminders_{_\"message\":_\"Don't_forget_final_is_at_8:00AM_sharp\",_\"time_stamp\":_\"2020-03-03_12:00PM\",_\"user_id\":_1_}",
-    "success": {
-      "examples": [
-        {
-          "title": "Successful Response",
-          "content": "HTTP/1.1 200 OK\n[\n {\n   \"id\": 1,\n   \"message\": \"Don't forget final is at 8:00AM\",\n   \"time_stamp\": \"2020-03-03 12:00PM\",\n   \"user_id\": 1\n },\n]",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "./reminders/reminders-router.js",
-    "groupTitle": "Reminders_{_\"message\":_\"Don't_forget_final_is_at_8:00AM_sharp\",_\"time_stamp\":_\"2020-03-03_12:00PM\",_\"user_id\":_1_}"
   },
   {
     "type": "delete",

@@ -83,6 +83,7 @@ remindersRouter.get("/:id", (req, res) => {
 * @api {post} api/messages Create A Reminder 
 * @apiName CreateAReminder
 * @apiGroup Reminders
+* @apiParamExample Example Body:
 * 
 *  {
 *    "message": "Don't forget final is at 8:00AM sharp",
