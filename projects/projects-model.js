@@ -2,11 +2,16 @@ const db = require('../data/dbConfig')
 
 
 module.exports = {
-    
+    findProjects,
     findById,
     addProject,
     updateProject,
     deleteProject,
+}
+
+function findProjects() {
+    return db.select('*')
+    .from('projects')
 }
 
 function findById (id) {
@@ -37,4 +42,6 @@ function deleteProject(id){
     return db('projects')
     .where('id', id)
     .del()
+
+
 }

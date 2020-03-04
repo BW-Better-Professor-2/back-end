@@ -4,6 +4,43 @@ const router = express.Router();
 const Projects = require('./projects-model')
 
 /** 
+* @api {get} api/messages Get All Projects
+* @apiName GetAllProjects
+* @apiGroup Projects
+* 
+
+* @apiSuccessExample Successful Response
+* HTTP/1.1 200 OK
+*[
+*  {
+*    "id": 1,
+*    "message": "Don't forget final is at 8:00AM",
+*    "time_stamp": "2020-03-03 12:00PM",
+*    "user_id": 1
+*  },
+*  {
+*    "id": 2,
+*    "message": "Don't forget to turn in final",
+*    "time_stamp": "2020-03-03 12:01PM",
+*    "user_id": 1
+*  }
+* ]
+*/
+
+
+router.get('/', (req, res) => {
+  Projects.findProjects()
+  .then(projects => {
+      res.json(projects)
+  })
+  .catch(err => {
+      console.log(err)
+      res.status(500).json({errorMessage: "Database failed to get users. Contact your backend"})
+  })
+});
+
+
+/** 
 * @api {get} api/projects/:id GET a Project by Id
 * @apiName getProjectById
 * @apiGroup Projects
@@ -103,6 +140,9 @@ router.post("/", (req, res) => {
 *
 * @apiSuccessExample Successful Response
 * HTTP/1.1 200 OK
+*{
+*  "message": "Your project with id of ${id} has been updated"
+*}
 */
 
 router.put("/:id", (req, res) => {
@@ -115,7 +155,9 @@ router.put("/:id", (req, res) => {
         if (project) {
           Projects.updateProject(changes, id)
           .then(updatedProjects => {
-            res.json(updatedProjects);
+            res.status(200).json({
+              message: `Your project with id of ${id} has been updated`
+            });
           });
         } else {
           res.status(404).json({ message: 'Could not find project with given id' });

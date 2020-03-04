@@ -54,7 +54,7 @@ router.post('/register', (req, res, next) => {
 *
 * @apiParamExample Example Body:
 * {
-*	"username": "bruce@banner.com",
+*	"username": "richard@richard.com",
 *	"password": "pass"   
 * }
 * @apiSuccess {String} token User's token
@@ -64,7 +64,7 @@ router.post('/register', (req, res, next) => {
 * HTTP/1.1 200 OK
 * {
 *    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJydWNlQGJhbm5lci5jb20iLCJ1c2VySWQiOjMsImlhdCI6MTU4MDY4OTUzNywiZXhwIjoxNTgwNjkzMTM3fQ.YEJbwZVYl05mG6loRYlsMbAfpce36y3f3J-6fudoxsk",
-*    "message": "Welcome bruce@banner.com!",
+*    "message": "Welcome richard@richard.com!",
 *    "id": 3
 * }
 */

@@ -156,44 +156,6 @@ define({ "api": [
     "groupTitle": "Login/Register"
   },
   {
-    "type": "get",
-    "url": "/messages/",
-    "title": "Get All  Messages",
-    "name": "GetMessages",
-    "group": "Messages",
-    "success": {
-      "examples": [
-        {
-          "title": "Successful Response",
-          "content": "HTTP/1.1 200 OK",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "./messages/messages-router.js",
-    "groupTitle": "Messages"
-  },
-  {
-    "type": "get",
-    "url": "/messages/students/:id",
-    "title": "Get Messages By Student ID",
-    "name": "GetMessagesByStudentId",
-    "group": "Messages",
-    "success": {
-      "examples": [
-        {
-          "title": "Successful Response",
-          "content": "  HTTP/1.1 200 OK \n{\n \"message\": \"There are no messages for student with the specified id\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "./messages/messages-router.js",
-    "groupTitle": "Messages"
-  },
-  {
     "type": "post",
     "url": "api/projects",
     "title": "Add/Create a new project",
@@ -655,7 +617,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Successful Response",
-          "content": "HTTP/1.1 200 OK\n[\n   {\n       \"projectId\": 2,\n       \"title\": \"Comments on Research Paper Due\",\n       \"due_date\": \"02-23-2020\",\n       \"reminder_time\": \"4:00\",\n       \"notes\": \"Must return comments and edits for midterm paper\"\n   },\n   {\n       \"projectId\": 3,\n       \"title\": \"Give feedback on mock interview\",\n       \"due_date\": \"02-28-2020\",\n       \"reminder_time\": \"12:00\",\n       \"notes\": \"Give feedback for mock interview excercise\"\n   }\n]",
+          "content": "HTTP/1.1 200 OK\n[\n   {\n       \"projectId\": 2,\n       \"title\": \"Comments on Research Paper Due\",\n       \"due_date\": \"03-23-2020\",\n       \"reminder_time\": \"4:00\",\n       \"notes\": \"Must return comments and edits for midterm paper\"\n   },\n   {\n       \"projectId\": 3,\n       \"title\": \"Give feedback on mock interview\",\n       \"due_date\": \"04-28-2020\",\n       \"reminder_time\": \"12:00\",\n       \"notes\": \"Give feedback for mock interview excercise\"\n   }\n]",
           "type": "json"
         }
       ]

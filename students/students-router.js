@@ -179,14 +179,14 @@ router.delete('/:id', (req, res) => {
 *    {
 *        "projectId": 2,
 *        "title": "Comments on Research Paper Due",
-*        "due_date": "02-23-2020",
+*        "due_date": "03-23-2020",
 *        "reminder_time": "4:00",
 *        "notes": "Must return comments and edits for midterm paper"
 *    },
 *    {
 *        "projectId": 3,
 *        "title": "Give feedback on mock interview",
-*        "due_date": "02-28-2020",
+*        "due_date": "04-28-2020",
 *        "reminder_time": "12:00",
 *        "notes": "Give feedback for mock interview excercise"
 *    }

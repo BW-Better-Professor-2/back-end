@@ -4,7 +4,7 @@
   "description": "Back end for unit 4",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watch --verbose ",
     "server": "nodemon index.js",
     "start": "node index.js",
     "docs": "apidoc -i ./ -e node_modules -o ./docs"
@@ -29,6 +29,10 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.10",
     "nodemon": "^2.0.2",
-    "sqlite3": "^4.1.1"
+    "sqlite3": "^4.1.1",
+    "supertest": "^4.0.2"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0"
   }
 }
