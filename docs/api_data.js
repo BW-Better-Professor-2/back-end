@@ -452,7 +452,7 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "api/messages",
+    "url": "api/reminders",
     "title": "Create A Reminder",
     "name": "CreateAReminder",
     "group": "Reminders",
@@ -480,7 +480,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "api/messages",
+    "url": "api/reminders",
     "title": "Get All Reminders",
     "name": "GetAllReminders",
     "group": "Reminders",
@@ -499,7 +499,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "api/messages/:id",
+    "url": "api/reminders/:id",
     "title": "Get A Reminder by ID",
     "name": "GetReminderById",
     "group": "Reminders",

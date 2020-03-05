@@ -2,9 +2,9 @@ const request = require("supertest");
 const db = require("../data/dbConfig");
 const server = require("../api/server");
 
-beforeAll(async () => {
-    await db('users').truncate();
-  })
+// beforeAll(async () => {
+//     await db('users').truncate();
+//   })
 
 
 describe('testing CRUD on /users', () => {

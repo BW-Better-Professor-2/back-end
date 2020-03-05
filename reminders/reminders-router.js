@@ -11,7 +11,7 @@ const Reminders = require("./reminders-model");
 const remindersRouter = express.Router();
 
 /** 
-* @api {get} api/messages Get All Reminders
+* @api {get} api/reminders Get All Reminders
 * @apiName GetAllReminders
 * @apiGroup Reminders
 * 
@@ -47,7 +47,7 @@ remindersRouter.get('/', (req, res) => {
 });
 
 /** 
-* @api {get} api/messages/:id Get A Reminder by ID
+* @api {get} api/reminders/:id Get A Reminder by ID
 * @apiName GetReminderById
 * @apiGroup Reminders
 * 
@@ -80,7 +80,7 @@ remindersRouter.get("/:id", (req, res) => {
 });
 
 /** 
-* @api {post} api/messages Create A Reminder 
+* @api {post} api/reminders Create A Reminder 
 * @apiName CreateAReminder
 * @apiGroup Reminders
 * @apiParamExample Example Body:
