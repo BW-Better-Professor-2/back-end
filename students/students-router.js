@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
         res.json(students)
     })
     .catch(err => {
-        console.log(err)
+       
         res.status(500).json({errorMessage: "Database failed to get users. Contact your backend"})
     })
  });
@@ -100,7 +100,7 @@ router.post('/', (req, res) => {
         
     })
     .catch(err => {
-      console.log(err)
+      
         res.status(500).json({errorMessage: 'Failed to create student. Please contact your backend'})
     })
     
@@ -124,7 +124,7 @@ router.put('/:id', (req, res) => {
         if (student) {
             Students.updateStudent(changes, id)
             .then(updatedStudent => {
-              console.log(updatedStudent)
+              
                 res.status(200).json(updatedStudent);
             })
         } else {
@@ -161,7 +161,7 @@ router.delete('/:id', (req, res) => {
         }
     })
     .catch(err => {
-        console.log(err)
+        
         res.status(500).json({errorMessage: "Failed to delete student. Contact your backend"})
     })
 });
